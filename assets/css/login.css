@@ -1,0 +1,64 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: url(../images/login_bg.jpg);
+    background-size: cover;
+}
+
+
+/* 登录注册区域 S */
+.loginAndRegBox {
+    width: 400px;
+    height: 310px;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .layui-form{
+      padding: 0 30px;
+  }
+
+/* 登录标题 */
+  .title-box {
+    height: 60px;
+    background: url('/assets/images/login_title.png') no-repeat center;
+  }
+
+
+  /* 表单样式 */
+.layui-form-item{
+    position: relative;
+}
+.layui-form-item i {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.layui-form-item input {
+    padding-left: 30px;
+}
+
+
+
+  /* 链接样式 */
+  .links{
+      display: flex;
+      justify-content: flex-end;
+  }
+  .links a {
+      font-size: 12px;
+  }
+
+
+
+  /* 注册 */
+  .reg-box {
+    display: none;
+  }
+
+/* 登录注册区域 E */
