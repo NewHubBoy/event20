@@ -16,6 +16,7 @@ $(function () {
     // 从 layui 获取 form 对象
     // const form = layui.form;
     const { form } = layui; // *解构方式获取对象
+    const { layer } = layui;
 
     // 通过 form.verify() 函数自定义校验规则
 
@@ -52,22 +53,39 @@ $(function () {
             username: $('.reg-box [name=username]').val(),
             password: $('.reg-box [name=password]').val()
         }, function (res) {
-            console.log(res);
+            if (res.status === !0) {
+                return layer.msg(res.message);
+            } else {
+                layer.msg(res.message + '正在跳转登陆~');
+                setTimeout(function () {
+                    $('#link_login').click();
+                }, 1000);
+            }
         })
     })
 
     // 监听登录表单事件
-    
+
     $('#form_login').on('submit', function (e) {
         // 阻止默认提交事件
         e.preventDefault();
 
         // 发起 ajax 请求
-        $.post('http://api-breakingnews-web.itheima.net/api/login', {
+        $.post('/api/login', {
             username: $('.login-box [name=username]').val(),
             password: $('.login-box [name=password]').val()
         }, function (res) {
-            console.log(res);
+            if (res.status === !0) {
+                return layer.msg(res.message);
+            } else {
+                layer.msg(res.message);
+                // 将登录成功得到的字符串 token 值存到locaStorage
+                // localStorage.setItem('token',res.token)
+                MyStorage.setItem('token', res.token,60000);
+                console.log(res.token);
+                console.log(new Date().getTime());
+                // location.href='./index.html';
+            }
         })
     })
 
