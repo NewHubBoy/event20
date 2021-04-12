@@ -49,7 +49,7 @@ $(function () {
         e.preventDefault();
 
         // 发起 ajax 请求
-        $.post('http://api-breakingnews-web.itheima.net/api/reguser', {
+        $.post('/api/reguser', {
             username: $('.reg-box [name=username]').val(),
             password: $('.reg-box [name=password]').val()
         }, function (res) {
@@ -84,7 +84,7 @@ $(function () {
                 MyStorage.setItem('token', res.token,60000);
                 console.log(res.token);
                 console.log(new Date().getTime());
-                // location.href='./index.html';
+                location.href='./index.html';
             }
         })
     })
