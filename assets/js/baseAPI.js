@@ -11,23 +11,20 @@ $.ajaxPrefilter(function (options) {
         }
     }
 
-    if (options.url.includes('/my/updatepwd')) {
-        return;
-    } else {
-        options.complete = function (res) {
-            const { responseJSON: { status, message } } = res;
-            if (status === 1 || message === "身份认证失败！") {
 
-                console.log(res.responseJSON);
+    options.complete = function (res) {
+        const { responseJSON: { status, message } } = res;
+        if (status === 1 && message === "身份认证失败！") {
 
-                // 强制清除本地 token 
-                localStorage.removeItem('token');
-                localStorage.removeItem('expireTime');
+            console.log(res.responseJSON);
+
+            // 强制清除本地 token 
+            localStorage.removeItem('token');
+            localStorage.removeItem('expireTime');
 
 
-                // 跳转到登录页面
-                location.href = '/login.html';
-            }
+            // 跳转到登录页面
+            location.href = '/login.html';
         }
     }
 })
