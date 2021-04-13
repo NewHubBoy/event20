@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1">提交5元</button>
+    <button id="btn2">防抖</button>
+    <button id="btn3">提交15元</button>
+    <button id="btn4">提交20元</button>
+    <!-- <script src="/assets/lib/jquery.js"></script> -->
+    <script>
+        // 
+        // pay('#btn1',5);
+        // pay('#btn2',10);
+        // pay('#btn3',15);
+        // pay('#btn4',20);
+
+
+
+        // function pay(id,price) {
+        //     let flag = true;
+        //     $(id).on('click', function () {
+        //         if (!flag) return;
+        //         console.log(`支付了${price}元`);
+        //         flag = false;
+        //     });
+        // }
+
+
+
+        // const btn = document.querySelector('#btn1');
+
+        // function once(fn){
+        //     let isDone = false;
+        //     return function(){
+        //         if(isDone) return;
+        //         fn();
+        //         isDone = true;
+        //     }
+        // }
+
+        // const pay = once(function(){
+        //     console.log('支付了');
+        // })
+        // btn.addEventListener('click',function(){
+        //     pay();
+        // })
+
+
+
+        const btn = document.getElementById('btn1');
+
+        function once(fn) {
+            let isDone = false;
+            return function (...num) {
+                if (isDone) return;
+                fn.apply(this, num)
+                isDone = true;
+            }
+        }
+
+        // -----------业务代码
+
+        const pay = once(function (money, dollar, t) {
+            console.log(this);
+
+            console.log(`支付成功了${money}元,${dollar}$,${t}t`);
+        })
+        const obj = {
+            name: '黑马'
+        }
+
+        obj.pay = pay;
+        btn.addEventListener('click', function () {
+            obj.pay(5, 10, 15)
+        })
+
+        const btn2 = document.getElementById('btn2');
+
+
+        //  ====== 防抖
+
+
+        let isEnd = false;
+        let timer = null;
+
+        function fd(fn, setTime) {
+            if (isEnd) {
+                clearTimeout(timer);
+            };
+
+            isEnd = true;
+
+            timer = setTimeout(function () {
+                isEnd = false;
+                return function () {
+                    fn()
+                }();
+            }, setTime);
+        }
+
+        // === 业务代码
+
+        btn2.addEventListener('click', function () {
+            fd(function () {
+                console.log('防抖');
+            }, 1000);
+        })
+
+
+        // ====节流
+        let jlIsEnd = false;
+
+        function jl(fn,setTime) {
+            if(jlIsEnd) return;
+
+            jlIsEnd = true;
+            timer = setTimeout(function () {
+                jlIsEnd = false;
+                return function(){
+                    fn()
+                }();
+            }, setTime)
+        }
+
+        // 业务
+        const btn3 = document.getElementById('btn3');
+
+        btn3.addEventListener('click', function () {
+            jl(function () {
+                console.log('节流');
+            }, 1000);
+        })
+
+
+    </script>
+</body>
+
+</html>

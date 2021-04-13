@@ -22,6 +22,10 @@ $(function () {
     });
 
 
+
+    $('#layui-nav-item').on('click',function(){
+        console.log($(this));
+    })
 });
 
 
@@ -39,6 +43,7 @@ function getUserInfo() {
             // console.log(res);
             if (res.status !== 1) {
                 MyStorage.setItem('token', MyStorage.getItem('token'), 1200000);
+                // MyStorage.setItem('user_info',JSON.stringify(res.data),1200000);
                 renderAvatar(res.data);
             } else {
                 console.log(res.message);

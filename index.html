@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="Zh-cn">
 
 <head>
     <meta charset="UTF-8" />
@@ -8,7 +8,7 @@
     <!-- 导入 layui 的样式表 -->
     <link rel="stylesheet" href="/assets/lib/layui/css/layui.css" />
     <!-- 引入自己的样式文件 -->
-    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
     <!-- 导入第三方图标库 -->
     <link rel="stylesheet" href="/assets/fonts/iconfont.css" />
 </head>
@@ -24,14 +24,14 @@
                 <li class="layui-nav-item">
                     <!-- 右侧导航栏上面头像 -->
                     <a href="javascript:;" class="userinfo">
-                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img" />
-                        <span class="text-avatar">A</span>
+                        <img  class="layui-nav-img" style="display: none;"/>
+                        <span class="text-avatar"  style="display: none;"></span>
                         个人中心
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">更换头像</a></dd>
-                        <dd><a href="">重置密码</a></dd>
+                        <dd><a href="/user/user_info.html" target="fm">基本资料</a></dd>
+                        <dd><a href="/user/user_avatar.html" target="fm">更换头像</a></dd>
+                        <dd><a href="/user/user_pwd.html" target="fm">重置密码</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item"><a href="javascript:;" id="exit"><span class="iconfont icon-tuichu"></span>退出</a></li>
@@ -42,9 +42,9 @@
             <div class="layui-side-scroll">
                 <!-- 左侧侧边栏上面头像 -->
                 <div class="userinfo">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img" />
-                    <span class="text-avatar">A</span>
-                    <span id="welcome">欢迎 ***</span>
+                    <img class="layui-nav-img" style="display: none;" />
+                    <span class="text-avatar" style="display: none;"></span>
+                    <span id="welcome"></span>
                 </div>
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree " lay-shrink='all'>
@@ -70,13 +70,13 @@
                         <a href="javascript:;"><span class="iconfont icon-user"></span>个人中心</a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a href="javascript:;"><i class="layui-icon layui-icon-form"></i>基本资料</a>
+                                <a href="/user/user_info.html" target="fm"><i class="layui-icon layui-icon-form"></i>基本资料</a>
                             </dd>
                             <dd>
-                                <a href="javascript:;"><i class="layui-icon layui-icon-face-surprised"></i>更换头像</a>
+                                <a href="/user/user_avatar.html" target="fm"><i class="layui-icon layui-icon-face-surprised"></i>更换头像</a>
                             </dd>
                             <dd>
-                                <a href="javascript:;"><i class="layui-icon layui-icon-util"></i>重置密码</a>
+                                <a href="/user/user_pwd.html" target="fm"><i class="layui-icon layui-icon-util"></i>重置密码</a>
                             </dd>
                         </dl>
                     </li>
@@ -87,7 +87,7 @@
         <div class="layui-body">
             <!-- 内容主体区域 -->
             <!-- 指定默认的打开页面  ./home/dashboard.html-->
-            <iframe src="./home/dashboard.html" name="fm" frameborder="0"></iframe>
+            <iframe src="/home/dashboard.html" name="fm" frameborder="0"></iframe>
         </div>
 
         <div class="layui-footer">
@@ -98,13 +98,13 @@
     <!-- 导入 layui 的JS文件 -->
     <script src="/assets/lib/layui/layui.all.js"></script>
     <!-- 导入 jQuery -->
-    <script src="./assets/lib/jquery.js"></script>
+    <script src="/assets/lib/jquery.js"></script>
     <!-- 导入baseAPI  -->
-    <script src="./assets/js/baseAPI.js"></script>
+    <script src="/assets/js/baseAPI.js"></script>
     <!-- 调用身份信息过期配置 -->
-    <script src="./assets/js/locaSetTime.js"></script>
+    <script src="/assets/js/locaSetTime.js"></script>
     <!-- 导入自己的 js -->
-    <script src="./assets/js/index.js"></script>
+    <script src="/assets/js/index.js"></script>
 </body>
 
 </html>

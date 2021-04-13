@@ -84,6 +84,7 @@ $(function () {
                 MyStorage.setItem('token', res.token,60000);
                 console.log(res.token);
                 console.log(new Date().getTime());
+                // console.log(res);
                 location.href='./index.html';
             }
         })
