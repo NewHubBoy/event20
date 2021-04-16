@@ -54,91 +54,178 @@
 
 
 
-        const btn = document.getElementById('btn1');
+        // const btn = document.getElementById('btn1');
 
-        function once(fn) {
-            let isDone = false;
-            return function (...num) {
-                if (isDone) return;
-                fn.apply(this, num)
-                isDone = true;
+        // function once(fn) {
+        //     let isDone = false;
+        //     return function (...num) {
+        //         if (isDone) return;
+        //         fn.apply(this, num)
+        //         isDone = true;
+        //     }
+        // }
+
+        // // -----------业务代码
+
+        // const pay = once(function (money, dollar, t) {
+        //     console.log(this);
+
+        //     console.log(`支付成功了${money}元,${dollar}$,${t}t`);
+        // })
+        // const obj = {
+        //     name: '黑马'
+        // }
+
+        // obj.pay = pay;
+        // btn.addEventListener('click', function () {
+        //     obj.pay(5, 10, 15)
+        // })
+
+        // const btn2 = document.getElementById('btn2');
+
+
+        // //  ====== 防抖
+
+
+
+        // function fd() {
+        //     let isEnd = false;
+        //     let timer = null;
+        //     return function (fn, time) {
+        //         if (isEnd) {
+        //             clearTimeout(timer);
+        //         }
+        //         isEnd = true;
+        //         timer = setTimeout(fn, time);
+        //     }
+        // }
+
+
+        // // console.log(a);
+
+
+        // // === 业务代码
+
+        // const fn = fd();
+        // btn2.addEventListener('click', function () {
+        //     fn(function () {
+        //         // 想要执行的业务代码
+        //         console.log('防抖');
+        //     }, 2000);
+        // })
+
+
+        // // const btn3 = document.getElementById('btn3');
+        // // const fn1 = fd();
+        // // btn3.addEventListener('click', function () {
+        // //     fn1(function () {
+        // //         console.log('防抖2');
+        // //     }, 3000);
+        // // })
+
+        // // ====节流
+
+
+
+        // function jl() {
+        //     let isEnd = false;
+
+        //     return function (fn, time) {
+
+        //         if (isEnd) return;
+
+        //         isEnd = true;
+
+        //         setTimeout(function(){
+        //             isEnd = false;
+        //             fn();
+        //         },time);
+        //     }
+        // }
+
+        // // 业务
+        // const btn3 = document.getElementById('btn3');
+
+        // const fn1 = jl();
+
+        // btn3.addEventListener('click', function () {
+        //     fn1(function () {
+        //         // 想要执行的业务代码
+        //         console.log('节流');
+        //     }, 1000);
+        // })
+
+        // const obj = {
+        //     user: '234',
+        //     name: [2, 4, 5, {
+        //         age: 18,
+        //         heima: 'test'
+        //     }],
+        //     msg: {
+        //         info: [4, 5, 6],
+        //         ch: {
+        //             cyz: [3, 4, 5, {
+        //                 ch: [4, 5, 5, 6]
+        //             }]
+        //         }
+        //     }
+        // };
+
+
+        // const newObj = {};
+
+        // deepCopy(obj, newObj);
+        // function deepCopy(oldObj, newObj) {
+        //     for (let key in oldObj) {
+        //         let toUpkey = key[0].toUpperCase().concat(key.slice(1));
+        //         if (oldObj[key] instanceof Array) {
+        //             newObj[toUpkey] = [];
+        //             deepCopy(oldObj[key], newObj[toUpkey]);
+        //         } else if (oldObj[key] instanceof Object) {
+        //             newObj[toUpkey] = {};
+        //             deepCopy(oldObj[key], newObj[toUpkey]);
+        //         } else {
+        //             newObj[toUpkey] = oldObj[key];
+        //         }
+        //     }
+        // }
+
+
+        // console.log(newObj);
+
+        const data = {
+            age: 123,
+            name: {
+                test: 'value',
+                heima: '123',
+                arr: [1, 32, {
+                    qls: 'name'
+                }],
+                nn: [23, 4, 5, 5]
+            },
+            js: '123'
+        };
+
+        // 定义个函数，判断数据是不是对象，返回布尔值
+
+        function isObject(current) {
+            return current instanceof Object;
+        }
+        // 定义函数，将数据中的键首字母大写
+
+        function toUpObject(obj) {
+
+            let res = Array.isArray(obj) ? [] : {};
+
+            for (let key in obj) {
+                const newKey = key.replace(key[0],(match)=>match.toUpperCase());
+                res[newKey] = isObject(obj[key]) ? toUpObject(obj[key]) : obj[key];
             }
+            return res;
         }
 
-        // -----------业务代码
-
-        const pay = once(function (money, dollar, t) {
-            console.log(this);
-
-            console.log(`支付成功了${money}元,${dollar}$,${t}t`);
-        })
-        const obj = {
-            name: '黑马'
-        }
-
-        obj.pay = pay;
-        btn.addEventListener('click', function () {
-            obj.pay(5, 10, 15)
-        })
-
-        const btn2 = document.getElementById('btn2');
-
-
-        //  ====== 防抖
-
-
-        let isEnd = false;
-        let timer = null;
-
-        function fd(fn, setTime) {
-            if (isEnd) {
-                clearTimeout(timer);
-            };
-
-            isEnd = true;
-
-            timer = setTimeout(function () {
-                isEnd = false;
-                return function () {
-                    fn()
-                }();
-            }, setTime);
-        }
-
-        // === 业务代码
-
-        btn2.addEventListener('click', function () {
-            fd(function () {
-                console.log('防抖');
-            }, 1000);
-        })
-
-
-        // ====节流
-        let jlIsEnd = false;
-
-        function jl(fn,setTime) {
-            if(jlIsEnd) return;
-
-            jlIsEnd = true;
-            timer = setTimeout(function () {
-                jlIsEnd = false;
-                return function(){
-                    fn()
-                }();
-            }, setTime)
-        }
-
-        // 业务
-        const btn3 = document.getElementById('btn3');
-
-        btn3.addEventListener('click', function () {
-            jl(function () {
-                console.log('节流');
-            }, 1000);
-        })
-
-
+        const res = toUpObject(data);
+        console.log(res)
     </script>
 </body>
 

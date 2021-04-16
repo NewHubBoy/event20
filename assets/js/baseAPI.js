@@ -9,7 +9,7 @@ $.ajaxPrefilter(function (options) {
         options.headers = {
             Authorization: MyStorage.getItem('token') || ''
         }
-    }
+    };
 
 
     options.complete = function (res) {

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="debounce">防抖</button>
+    <button id="throttle">节流</button>
+    <script>
+        let index = 0;
+        // ==============================防抖闭包==============================
+        function debounce() {
+            // 防抖标志变量
+            let isEnd = false;
+            // 定时器容器
+            let timer = null;
+
+            return function (fn, time) {
+
+                // 判断上次的函数是否执行完毕
+                if (isEnd) { clearTimeout(timer) };
+
+                // 将防抖标志变量设为true
+                isEnd = true;
+
+                timer = setTimeout(fn, time);
+            };
+        }
+
+        const fn = debounce();
+
+
+        const debounceBtn = document.getElementById('debounce');
+
+        debounceBtn.addEventListener('click', function () {
+            fn(function () { console.log(index++) }, 1000);
+        });
+
+
+        // ==============================节流闭包==============================
+
+        function throttle() {
+
+            // 节流标志变量
+            let isEnd = false;
+
+            return function (fn, time) {
+                if (isEnd) return;
+                isEnd = true;
+                setTimeout(function () {
+                    fn();
+                    isEnd = false;
+                }, time);
+            }
+        };
+
+        const fn2 = throttle();
+
+        const throttleBtn = document.getElementById('throttle');
+        throttleBtn.addEventListener('click', function () {
+            fn2(function () { console.log(index++) }, 1000);
+        })
+
+        // ==============================深拷贝==============================
+
+        function deppCopy(obj) {
+            // 防止传入简单数据类型 增强兼容性
+            if (!obj instanceof Object) return;
+
+            // 判断传入数据是数组类型还是对象
+            let res = Array.isArray(obj) ? [] : {}
+
+            // 变量数据
+            for (let key in obj) {
+                // 给新变量赋值，子项如果是对象类型 递归执行 deppCopy() 否则直接赋值
+                res[key] = obj[key] instanceof Object ? deppCopy(obj[key]) : obj[key];
+            }
+            // 返回结果
+            return res;
+        }
+
+        const data = {
+            age: 123,
+            name: {
+                test: 'value',
+                heima: '123',
+                arr: [1, 32, {
+                    qls: 'name'
+                }],
+                nn: [23, 4, 5, 5]
+            },
+            js: '123'
+        };
+
+        const newData = deppCopy(data);
+        console.log(newData);
+
+        // ==============================继承==============================
+
+        // es5 继承
+
+        function Father(name, color) {
+            this.name = name;
+            this.color = color;
+            this.money = function(){
+                console.log('zero');
+            }
+        }
+
+        Father.prototype.skill = function () {
+            console.log('sing');
+        }
+
+        function Son(name, color, hoppy) {
+
+            // 继承父类的属性
+            Father.call(this, name, color);
+            this.hoppy = hoppy;
+        }
+
+        // 继承父类的原型方法
+
+        Son.prototype = new Father();
+
+        // 将构造函数的this 指向自己
+        Son.prototype.constrcutor = Son;
+
+        const son = new Son('王','白色','唱歌');
+        console.log(son);
+        son.skill();
+        son.money();
+
+
+
+        // es6 继承
+
+        class Fa{
+            constructor(name,color){
+                this.name = name;
+                this.color = color;
+            }
+            skill(){
+                console.log('划水');
+            }
+        }
+
+        class S extends Fa{
+            //  如果不加 constructor ,表示不重写构造函数，将继承父级的构造函数 如果加了constructor 要在里面加 super();！！加在自己的实例成员(this.xxx)前面
+            constructor(name,color,score){
+                super(name,color);
+                this.score = score;
+            }
+            pp(){
+                // 继承父类的方法
+                super.skill();
+            }
+        }
+        const s = new S('王','白色','99');
+        console.log(s);
+        s.pp()
+
+        console.log('===================================================================');
+        // ============================== FormData 数据提交 ==============================
+
+        
+    </script>
+</body>
+
+</html>
